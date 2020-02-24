@@ -9,14 +9,13 @@
 /* Begin PBXBuildFile section */
 		4C3845B4E185E48EA6504124 /* Pods_Schema.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61B4BEE6D8EEB85F09560CD /* Pods_Schema.framework */; };
 		6622CDF823E5C28C00538801 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6622CDF723E5C28C00538801 /* QuizViewController.swift */; };
-		66322C8323FDB58800EE8964 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		66322C8323FDB58800EE8964 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		66327A1023E601D700A4CD1E /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66327A0F23E601D700A4CD1E /* QuestionModel.swift */; };
 		66327A1223E630E500A4CD1E /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66327A1123E630E500A4CD1E /* ResultsModel.swift */; };
 		663AEA0A24002BF60042E0B1 /* BetterUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663AEA0924002BF60042E0B1 /* BetterUIViewController.swift */; };
 		663AEA0C240039180042E0B1 /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663AEA0B240039180042E0B1 /* Vibration.swift */; };
 		664399F423FC175F00D7C6EF /* SavedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664399F323FC175F00D7C6EF /* SavedResult.swift */; };
 		664399F823FC5D6C00D7C6EF /* SavedResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664399F723FC5D6C00D7C6EF /* SavedResultCell.swift */; };
-		666E85B224017EBB0080AD76 /* CommentedOutCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666E85B124017EBB0080AD76 /* CommentedOutCode.swift */; };
 		668965DD240200CC00D2F5B1 /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668965DC240200CC00D2F5B1 /* NameViewController.swift */; };
 		668965DF24020CAC00D2F5B1 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668965DE24020CAC00D2F5B1 /* InstructionsViewController.swift */; };
 		6699EB6423E776CC004E5FEC /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6699EB6323E776CC004E5FEC /* AboutViewController.swift */; };
@@ -43,7 +42,6 @@
 		663AEA0B240039180042E0B1 /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		664399F323FC175F00D7C6EF /* SavedResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedResult.swift; sourceTree = "<group>"; };
 		664399F723FC5D6C00D7C6EF /* SavedResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedResultCell.swift; sourceTree = "<group>"; };
-		666E85B124017EBB0080AD76 /* CommentedOutCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentedOutCode.swift; sourceTree = "<group>"; };
 		668965DC240200CC00D2F5B1 /* NameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
 		668965DE24020CAC00D2F5B1 /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		6699EB6323E776CC004E5FEC /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 				664399F323FC175F00D7C6EF /* SavedResult.swift */,
 				663AEA0924002BF60042E0B1 /* BetterUIViewController.swift */,
 				663AEA0B240039180042E0B1 /* Vibration.swift */,
-				666E85B124017EBB0080AD76 /* CommentedOutCode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -231,7 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66322C8323FDB58800EE8964 /* BuildFile in Resources */,
+				66322C8323FDB58800EE8964 /* (null) in Resources */,
 				669A531723E5A293007B4974 /* LaunchScreen.storyboard in Resources */,
 				669A1CF923FEAA3500B4D2E1 /* Settings.bundle in Resources */,
 				669A531423E5A293007B4974 /* Assets.xcassets in Resources */,
@@ -301,7 +298,6 @@
 				66ACDFDD23F8309300752B9B /* PastResultsViewController.swift in Sources */,
 				664399F823FC5D6C00D7C6EF /* SavedResultCell.swift in Sources */,
 				669A1CFB23FEAE7C00B4D2E1 /* SettingsBundleHandler.swift in Sources */,
-				666E85B224017EBB0080AD76 /* CommentedOutCode.swift in Sources */,
 				668965DF24020CAC00D2F5B1 /* InstructionsViewController.swift in Sources */,
 				66EB1EA723E6FC2100DE9587 /* ResultCell.swift in Sources */,
 				664399F423FC175F00D7C6EF /* SavedResult.swift in Sources */,
@@ -462,14 +458,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 102;
-				DEVELOPMENT_TEAM = DMNW5WHDHR;
+				DEVELOPMENT_TEAM = 6XBXP7U8AF;
 				INFOPLIST_FILE = Schema/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lazybear.schema;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skyguru.schema;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -488,14 +484,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 102;
-				DEVELOPMENT_TEAM = DMNW5WHDHR;
+				DEVELOPMENT_TEAM = 6XBXP7U8AF;
 				INFOPLIST_FILE = Schema/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lazybear.schema;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skyguru.schema;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
