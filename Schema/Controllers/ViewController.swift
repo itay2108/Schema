@@ -21,7 +21,7 @@ class ViewController: BetterUIViewController {
 
         if UIApplication.isFirstLaunch() {
             print("First launch")
-            UserDefaults.standard.set(false, forKey: "isSavedProgressAvailable")
+            //UserDefaults.standard.set(false, forKey: "isSavedProgressAvailable")
             UserDefaults.standard.set(0, forKey: "currentQuestion")
         }
         for button in self.buttons {
@@ -37,9 +37,9 @@ class ViewController: BetterUIViewController {
         SettingsBundleHandler.shared.setupNotificationObserver()
         
         if UserDefaults.standard.bool(forKey: "isSavedProgressAvailable") {
-            beginButton.titleLabel?.text = "  Continue Questionnaire"
+            beginButton.setTitle("  Continue Questionnaire", for: UIControl.State.normal)
         } else {
-            beginButton.titleLabel?.text = "  Begin Questionnaire"
+            beginButton.setTitle("  Begin Questionnaire", for: UIControl.State.normal)
         }
         
         
@@ -52,11 +52,11 @@ class ViewController: BetterUIViewController {
         if UIApplication.isFirstLaunch() {
             performSegue(withIdentifier: "rootToInstructions", sender: self)
         } else {
-            if UserDefaults.standard.bool(forKey: "auto_save") {
-                print("autosave")
+            if UserDefaults.standard.bool(forKey: "auto_save") && !UserDefaults.standard.bool(forKey: "isSavedProgressAvailable") {
+                print("autosave is active. progress not available")
                 performSegue(withIdentifier: "rootToName", sender: self)
             } else {
-                print("not autosave")
+                print("not autosave, and/or progress is available")
                 performSegue(withIdentifier: "rootToQuiz", sender: self)
               }
         }

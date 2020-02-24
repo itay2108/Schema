@@ -15,6 +15,8 @@ public class ResultsModel: Object {
     
     dynamic var resultArray = List<Int>()
     
+    dynamic var name: String = ""
+    
     public dynamic var isProgressSaved = false
 
 }

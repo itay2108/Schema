@@ -21,7 +21,6 @@ class QuizViewController: BetterUIViewController {
     let realm = try! Realm()
     let defaults = UserDefaults.standard
     var results: Results<ResultsModel>?
-    var name: String?
     
     var selectedScore: Int?
     
@@ -31,9 +30,9 @@ class QuizViewController: BetterUIViewController {
         //If there isn't a questionnaire in progress - Delete old results and create a blank List<Int> with 18 places that are equal to 0. else - keep the result array in progress
         if !defaults.bool(forKey: "isSavedProgressAvailable") {
             if !UIApplication.isFirstLaunch() {
-                    try! realm.write {
-                        realm.delete(realm.objects(ResultsModel.self))
-                    }
+                try! realm.write {
+                    realm.delete(realm.objects(ResultsModel.self))
+                }
             }
             createEmptyResultsArray()
         } else {
@@ -62,36 +61,36 @@ class QuizViewController: BetterUIViewController {
         }
         
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         updateUI()
     }
     
     
-// MARK: - @IBOutlet funcs
+    // MARK: - @IBOutlet funcs
     
     
     @IBAction func answerPressed(_ sender: UIButton) {
-
+        
         deselectAllAnswerButtons()
         
         selectedScore = sender.tag
         sender.setImage(UIImage(systemName: "circle.fill"), for: .normal)
         sender.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 21.0)
     }
-
+    
     @IBAction func nextButtonPressed(_ sender: UIButton) {
         
         //checking that it is not the last question
         if (QuestionModel.shared.currentQuestion + 1) < QuestionModel.shared.questions.count {
-
-           //checking that answer is selected
+            
+            //checking that answer is selected
             if selectedScore != nil {
                 
                 //button vibration feedback
                 Vibration.medium.vibrate()
                 // deselecting all previously selected answer buttons
-                    deselectAllAnswerButtons()
+                deselectAllAnswerButtons()
                 
                 //safely unwarpping selected score and current scheme score
                 if let safeScore = selectedScore {
@@ -106,14 +105,14 @@ class QuizViewController: BetterUIViewController {
                     //moving one question forward and updating all text
                     QuestionModel.shared.currentQuestion += 1
                     questionLabel.fadeOut(duration: 0.15, delay: 0)
-
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
                         self.updateUI()
                         self.questionLabel.fadeIn(duration: 0.15, delay: 0)
                     }
                     
                 }
-           }
+            }
         } else {
             //this is what happens when next is pressed on last question
             
@@ -127,7 +126,7 @@ class QuizViewController: BetterUIViewController {
                 }
             }
             
-
+            
             if defaults.bool(forKey: "auto_save") {
                 autoSave()
             }
@@ -135,10 +134,10 @@ class QuizViewController: BetterUIViewController {
             QuestionModel.shared.currentQuestion = 0
             self.defaults.set(false, forKey: "isSavedProgressAvailable")
             performSegue(withIdentifier: "quizToResults", sender: self)
-          }
+        }
     }
     
-//MARK: - UI Manipulation funcs
+    //MARK: - UI Manipulation funcs
     
     func updateUI() {
         
@@ -146,34 +145,34 @@ class QuizViewController: BetterUIViewController {
         questionLabel.text = "\(QuestionModel.shared.questions[(QuestionModel.shared.currentQuestion)])"
         selectedScore = nil
         
-
+        
     }
     
     func deselectAllAnswerButtons() {
-          
+        
         for button in self.buttons {
             button.setImage(UIImage(systemName: "circle"), for: .normal)
             button.titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 21.0)
         }
-
+        
     }
     
     func createEmptyResultsArray() {
         for _ in 1...18 {
             resultsModel.resultArray.append(0)
         }
-
+        
         do{
             try realm.write {
                 realm.add(resultsModel)
-
+                
             }
         } catch {
             print("error adding results array to realm \(error)")
         }
     }
     
-//MARK: - Back button logic (Includes pregress saving and discrading)
+    //MARK: - Back button logic (Includes pregress saving and discrading)
     
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -207,29 +206,26 @@ class QuizViewController: BetterUIViewController {
             self.present(alert, animated: true)
         } else {   self.navigationController?.popViewController(animated: true)    }
     }
-  
-//MARK: - handle autosave
+    
+    //MARK: - handle autosave
+    
+    func autoSave() {
         
-        func autoSave() {
-            if let safeName = name {
-                    for i in self.resultsModel.resultArray {
-                        self.savedResult.result.append(i)
-                    }
-                    
-                
-                do {
-                    try self.realm.write {
-                        print(savedResult)
-                            self.savedResult.name = safeName
-                            self.savedResult.date = Date()
-                            self.realm.add(self.savedResult)
-                        print("success")
-                        print(self.savedResult)
-                    }
-                } catch {
-                    print("error saving result to realm \(error)")
-                }
+        for i in self.resultsModel.resultArray {
+            self.savedResult.result.append(i)
+        }
+        
+        do {
+            try self.realm.write {
+                self.savedResult.name = ResultsModel.shared.name
+                self.savedResult.date = Date()
+                self.realm.add(self.savedResult)
+                print("success saving result: ")
+                print(self.savedResult)
             }
+        } catch {
+            print("error saving result to realm \(error)")
+        }
     }
     
 }

@@ -13,8 +13,6 @@ class NameViewController: BetterUIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var placeHolder: UILabel!
     
-    var name: String?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -95,15 +93,8 @@ class NameViewController: BetterUIViewController, UITextFieldDelegate {
         }
         
         if let safeName = nameTextField?.text {
-            name = safeName
+            ResultsModel.shared.name = safeName
             performSegue(withIdentifier: "nameToQuiz", sender: self)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination as! QuizViewController
-        if let safeName = name {
-            destination.name = safeName
         }
     }
     
