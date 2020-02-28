@@ -16,6 +16,8 @@ class NameViewController: BetterUIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
+        
         self.nameTextField.delegate = self
         hideKeyboardWhenTappedAround()
         

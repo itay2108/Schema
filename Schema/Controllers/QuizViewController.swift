@@ -13,40 +13,52 @@ class QuizViewController: BetterUIViewController {
     
     @IBOutlet var buttons: [UIButton]!
     @IBOutlet var nextButton: UIButton!
+    @IBOutlet weak var previousButton: UIButton!
     
     @IBOutlet weak var questionLabel: UILabel!
+
     
     var resultsModel = ResultsModel()
     let savedResult = SavedResult()
+    var answersModel = Answers()
     let realm = try! Realm()
     let defaults = UserDefaults.standard
     var results: Results<ResultsModel>?
+    var currentQuestion = QuestionModel.shared.currentQuestion
     
     var selectedScore: Int?
+    var maxAnsweredQuestion = 0
+    var answers: Results<Answers>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
         
         //If there isn't a questionnaire in progress - Delete old results and create a blank List<Int> with 18 places that are equal to 0. else - keep the result array in progress
         if !defaults.bool(forKey: "isSavedProgressAvailable") {
             if !UIApplication.isFirstLaunch() {
                 try! realm.write {
                     realm.delete(realm.objects(ResultsModel.self))
+                    realm.delete(realm.objects(Answers.self))
                 }
             }
             createEmptyResultsArray()
+            results = realm.objects(ResultsModel.self)
+            answers = realm.objects(Answers.self)
+            //print(answers?.last?.answers[currentQuestion])
         } else {
             results = realm.objects(ResultsModel.self)
+            answers = realm.objects(Answers.self)
             try! realm.write {
                 resultsModel.resultArray = (results?.last!.resultArray)!
             }
-            QuestionModel.shared.currentQuestion = defaults.integer(forKey: "currentQuestion")
+            currentQuestion = defaults.integer(forKey: "currentQuestion")
+
         }
         
         SettingsBundleHandler.shared.delegate = self
         SettingsBundleHandler.shared.setupNotificationObserver()
         updateUI()
-        
         //Removing Instructions ViewController from navigation stack, so when the back button is pressed - it opens the root vc
         if let rootVC = navigationController?.viewControllers.first {
             navigationController?.viewControllers = [rootVC, self]
@@ -81,8 +93,36 @@ class QuizViewController: BetterUIViewController {
     
     @IBAction func nextButtonPressed(_ sender: UIButton) {
         
+        
+        if currentQuestion >= maxAnsweredQuestion {
+            if selectedScore != 0 && selectedScore != nil {
+//            print(selectedScore)
+//            print(currentQuestion, maxAnsweredQuestion)
+            registerAnswer()
+            nextQuestionUIUpdate()
+            maxAnsweredQuestion += 1
+            }
+        } else {
+            registerAnswer()
+            nextQuestionUIUpdate()
+        }
+    }
+    
+    @IBAction func previousButtonPressed(_ sender: Any) {
+        if selectedScore != 0 && selectedScore != nil {
+        registerAnswer()
+        }
+        previousQuestionUIUpdate()
+        
+    }
+    
+    
+    //MARK: - UI Manipulation funcs
+    
+    func registerAnswer() {
+
         //checking that it is not the last question
-        if (QuestionModel.shared.currentQuestion + 1) < QuestionModel.shared.questions.count {
+        if (currentQuestion + 1) < QuestionModel.shared.questions.count {
             
             //checking that answer is selected
             if selectedScore != nil {
@@ -94,23 +134,18 @@ class QuizViewController: BetterUIViewController {
                 
                 //safely unwarpping selected score and current scheme score
                 if let safeScore = selectedScore {
+                    
                     do {
                         try realm.write {
-                            resultsModel.resultArray[(QuestionModel.shared.currentQuestion % 18)] += safeScore
+                            print("score to substract: \(String(describing: answers?.last?.answers[currentQuestion]))")
+                            resultsModel.resultArray[(currentQuestion % 18)] -= answers?.last?.answers[currentQuestion] ?? 0
+                            answers?.last?.answers[currentQuestion] = safeScore
+                            resultsModel.resultArray[(currentQuestion % 18)] += safeScore
                         }
                     } catch {
                         print(error)
                     }
-                    
-                    //moving one question forward and updating all text
-                    QuestionModel.shared.currentQuestion += 1
-                    questionLabel.fadeOut(duration: 0.15, delay: 0)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
-                        self.updateUI()
-                        self.questionLabel.fadeIn(duration: 0.15, delay: 0)
-                    }
-                    
+
                 }
             }
         } else {
@@ -119,7 +154,10 @@ class QuizViewController: BetterUIViewController {
             if let safeScore = selectedScore {
                 do {
                     try realm.write {
-                        resultsModel.resultArray[(QuestionModel.shared.currentQuestion % 18)] += safeScore
+                        print("score to substract: \(String(describing: answers?.last?.answers[currentQuestion]))")
+                        resultsModel.resultArray[(currentQuestion % 18)] -= answers?.last?.answers[currentQuestion] ?? 0
+                        answers?.last?.answers[currentQuestion] = safeScore
+                        resultsModel.resultArray[(currentQuestion % 18)] += safeScore
                     }
                 } catch {
                     print(error)
@@ -130,21 +168,73 @@ class QuizViewController: BetterUIViewController {
             if defaults.bool(forKey: "auto_save") {
                 autoSave()
             }
-            
-            QuestionModel.shared.currentQuestion = 0
+            maxAnsweredQuestion = 0
+            currentQuestion = 0
             self.defaults.set(false, forKey: "isSavedProgressAvailable")
             performSegue(withIdentifier: "quizToResults", sender: self)
         }
     }
     
-    //MARK: - UI Manipulation funcs
+    
+    func nextQuestionUIUpdate() {
+        //moving one question forward and updating all text
+        currentQuestion += 1
+            questionLabel.fadeOut(duration: 0.15, delay: 0)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
+                self.updateUI()
+                self.questionLabel.fadeIn(duration: 0.15, delay: 0)
+            }
+        if answers?.last?.answers[currentQuestion] != 0 {
+            selectedScore = answers?.last?.answers[currentQuestion]
+                if selectedScore != 0 {
+                    for button in buttons {
+                        if button.tag == selectedScore {
+                            button.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+                            button.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 21.0)
+                        }
+                    }
+            }
+      }
+    }
+    
+    func previousQuestionUIUpdate() {
+        //moving one question forward and updating all text
+        currentQuestion -= 1
+
+            questionLabel.fadeOut(duration: 0.15, delay: 0)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
+                self.updateUI()
+                self.questionLabel.fadeIn(duration: 0.15, delay: 0)
+            }
+           if answers?.last?.answers[currentQuestion] != 0 {
+            selectedScore = answers?.last?.answers[currentQuestion]
+            print(selectedScore!)
+            if selectedScore != 0 {
+                for button in buttons {
+                    if button.tag == selectedScore {
+                        button.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+                        button.titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 21.0)
+                    }
+                }
+            }
+        }
+    }
     
     func updateUI() {
         
-        navigationItem.title = "Question \(QuestionModel.shared.currentQuestion + 1)/\(QuestionModel.shared.questions.count)"
-        questionLabel.text = "\(QuestionModel.shared.questions[(QuestionModel.shared.currentQuestion)])"
+        navigationItem.title = "Question \(currentQuestion + 1)/\(QuestionModel.shared.questions.count)"
+        questionLabel.text = "\(QuestionModel.shared.questions[(currentQuestion)])"
+        if answers?.last?.answers[currentQuestion] != 0 {
+            selectedScore = answers?.last?.answers[currentQuestion]
+        } else {
         selectedScore = nil
+        }
         
+        if currentQuestion == 0 {
+        previousButton.isEnabled = false
+        } else {
+            previousButton.isEnabled = true
+        }
         
     }
     
@@ -162,9 +252,14 @@ class QuizViewController: BetterUIViewController {
             resultsModel.resultArray.append(0)
         }
         
+        for _ in 1...QuestionModel.shared.questions.count {
+            answersModel.answers.append(0)
+        }
+        
         do{
             try realm.write {
                 realm.add(resultsModel)
+                realm.add(answersModel)
                 
             }
         } catch {
@@ -176,7 +271,7 @@ class QuizViewController: BetterUIViewController {
     
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
         
-        if QuestionModel.shared.currentQuestion != 0 {
+        if currentQuestion != 0 {
             let alert = UIAlertController(title: "Are you sure you want to quit?", message: "Your progress will be discarded", preferredStyle: .alert)
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
@@ -184,7 +279,7 @@ class QuizViewController: BetterUIViewController {
             
             let saveAndQuitAction = UIAlertAction(title: "Save and quit", style: .default) { (action) in
                 
-                self.defaults.set(QuestionModel.shared.currentQuestion, forKey: "currentQuestion")
+                self.defaults.set(self.currentQuestion, forKey: "currentQuestion")
                 self.defaults.set(true, forKey: "isSavedProgressAvailable")
                 
                 self.navigationController?.popViewController(animated: true)
@@ -195,7 +290,7 @@ class QuizViewController: BetterUIViewController {
                 
                 self.defaults.set(false, forKey: "isSavedProgressAvailable")
                 
-                QuestionModel.shared.currentQuestion = 0
+                self.currentQuestion = 0
                 self.navigationController?.popViewController(animated: true)
             }
             

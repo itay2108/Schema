@@ -16,8 +16,12 @@
 		663AEA0C240039180042E0B1 /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663AEA0B240039180042E0B1 /* Vibration.swift */; };
 		664399F423FC175F00D7C6EF /* SavedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664399F323FC175F00D7C6EF /* SavedResult.swift */; };
 		664399F823FC5D6C00D7C6EF /* SavedResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664399F723FC5D6C00D7C6EF /* SavedResultCell.swift */; };
+		6659F72C2408406400905823 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6659F72B2408406400905823 /* StoreKit.framework */; };
+		6659F72E2408449B00905823 /* BetterUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659F72D2408449B00905823 /* BetterUINavigationController.swift */; };
+		6659F7322408883500905823 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659F7312408883500905823 /* K.swift */; };
 		668965DD240200CC00D2F5B1 /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668965DC240200CC00D2F5B1 /* NameViewController.swift */; };
 		668965DF24020CAC00D2F5B1 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668965DE24020CAC00D2F5B1 /* InstructionsViewController.swift */; };
+		6697D7172405755B0017ABC8 /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6697D7162405755B0017ABC8 /* Answers.swift */; };
 		6699EB6423E776CC004E5FEC /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6699EB6323E776CC004E5FEC /* AboutViewController.swift */; };
 		669A1CF923FEAA3500B4D2E1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 669A1CF823FEAA3500B4D2E1 /* Settings.bundle */; };
 		669A1CFB23FEAE7C00B4D2E1 /* SettingsBundleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A1CFA23FEAE7C00B4D2E1 /* SettingsBundleHandler.swift */; };
@@ -42,8 +46,12 @@
 		663AEA0B240039180042E0B1 /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		664399F323FC175F00D7C6EF /* SavedResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedResult.swift; sourceTree = "<group>"; };
 		664399F723FC5D6C00D7C6EF /* SavedResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedResultCell.swift; sourceTree = "<group>"; };
+		6659F72B2408406400905823 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		6659F72D2408449B00905823 /* BetterUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterUINavigationController.swift; sourceTree = "<group>"; };
+		6659F7312408883500905823 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		668965DC240200CC00D2F5B1 /* NameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
 		668965DE24020CAC00D2F5B1 /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
+		6697D7162405755B0017ABC8 /* Answers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
 		6699EB6323E776CC004E5FEC /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		669A1CF823FEAA3500B4D2E1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		669A1CFA23FEAE7C00B4D2E1 /* SettingsBundleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHandler.swift; sourceTree = "<group>"; };
@@ -71,6 +79,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C3845B4E185E48EA6504124 /* Pods_Schema.framework in Frameworks */,
+				6659F72C2408406400905823 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +124,7 @@
 		669A531E23E5BE64007B4974 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6659F72D2408449B00905823 /* BetterUINavigationController.swift */,
 				669A530B23E5A28C007B4974 /* ViewController.swift */,
 				668965DE24020CAC00D2F5B1 /* InstructionsViewController.swift */,
 				668965DC240200CC00D2F5B1 /* NameViewController.swift */,
@@ -140,12 +150,14 @@
 		669A532223E5BEB7007B4974 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6697D7162405755B0017ABC8 /* Answers.swift */,
 				66327A0F23E601D700A4CD1E /* QuestionModel.swift */,
 				66327A1123E630E500A4CD1E /* ResultsModel.swift */,
 				66DC0D3C23E76E720033126A /* Info.swift */,
 				664399F323FC175F00D7C6EF /* SavedResult.swift */,
 				663AEA0924002BF60042E0B1 /* BetterUIViewController.swift */,
 				663AEA0B240039180042E0B1 /* Vibration.swift */,
+				6659F7312408883500905823 /* K.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -162,6 +174,7 @@
 		E6ABDFAB8537DDDE17C8AEAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6659F72B2408406400905823 /* StoreKit.framework */,
 				D61B4BEE6D8EEB85F09560CD /* Pods_Schema.framework */,
 			);
 			name = Frameworks;
@@ -288,6 +301,7 @@
 				668965DD240200CC00D2F5B1 /* NameViewController.swift in Sources */,
 				6622CDF823E5C28C00538801 /* QuizViewController.swift in Sources */,
 				669A530C23E5A28C007B4974 /* ViewController.swift in Sources */,
+				6697D7172405755B0017ABC8 /* Answers.swift in Sources */,
 				66DC0D3D23E76E720033126A /* Info.swift in Sources */,
 				66327A1023E601D700A4CD1E /* QuestionModel.swift in Sources */,
 				663AEA0C240039180042E0B1 /* Vibration.swift in Sources */,
@@ -299,7 +313,9 @@
 				664399F823FC5D6C00D7C6EF /* SavedResultCell.swift in Sources */,
 				669A1CFB23FEAE7C00B4D2E1 /* SettingsBundleHandler.swift in Sources */,
 				668965DF24020CAC00D2F5B1 /* InstructionsViewController.swift in Sources */,
+				6659F72E2408449B00905823 /* BetterUINavigationController.swift in Sources */,
 				66EB1EA723E6FC2100DE9587 /* ResultCell.swift in Sources */,
+				6659F7322408883500905823 /* K.swift in Sources */,
 				664399F423FC175F00D7C6EF /* SavedResult.swift in Sources */,
 				6699EB6423E776CC004E5FEC /* AboutViewController.swift in Sources */,
 				669A530A23E5A28C007B4974 /* SceneDelegate.swift in Sources */,
@@ -455,19 +471,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 102;
-				DEVELOPMENT_TEAM = 6XBXP7U8AF;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 121;
+				DEVELOPMENT_TEAM = DMNW5WHDHR;
 				INFOPLIST_FILE = Schema/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.skyguru.schema;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gervash.Schema;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Itay Gervash";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -481,19 +497,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 102;
-				DEVELOPMENT_TEAM = 6XBXP7U8AF;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 121;
+				DEVELOPMENT_TEAM = DMNW5WHDHR;
 				INFOPLIST_FILE = Schema/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.skyguru.schema;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gervash.Schema;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Itay Gervash";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

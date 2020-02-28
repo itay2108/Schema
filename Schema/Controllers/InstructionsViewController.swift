@@ -17,7 +17,7 @@ class InstructionsViewController: BetterUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
         
         if UserDefaults.standard.bool(forKey: "short_quiz") {
             numOfQuestions = 18

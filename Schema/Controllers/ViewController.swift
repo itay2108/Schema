@@ -17,11 +17,15 @@ class ViewController: BetterUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+
+        view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
+        
+        
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
 
         if UIApplication.isFirstLaunch() {
             print("First launch")
-            //UserDefaults.standard.set(false, forKey: "isSavedProgressAvailable")
+            UserDefaults.standard.set(false, forKey: "isSavedProgressAvailable") 
             UserDefaults.standard.set(0, forKey: "currentQuestion")
         }
         for button in self.buttons {
@@ -131,7 +135,6 @@ extension ViewController: MFMailComposeViewControllerDelegate {
         default:
             print("hello, World!")
         }
-        
 
     }
     
