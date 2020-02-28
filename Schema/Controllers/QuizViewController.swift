@@ -14,6 +14,8 @@ class QuizViewController: BetterUIViewController {
     @IBOutlet var buttons: [UIButton]!
     @IBOutlet var nextButton: UIButton!
     @IBOutlet weak var previousButton: UIButton!
+    @IBOutlet weak var questionView: UIView!
+    @IBOutlet weak var questionNumberLabel: UILabel!
     
     @IBOutlet weak var questionLabel: UILabel!
 
@@ -32,7 +34,8 @@ class QuizViewController: BetterUIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
+        
+        view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
         
         //If there isn't a questionnaire in progress - Delete old results and create a blank List<Int> with 18 places that are equal to 0. else - keep the result array in progress
         if !defaults.bool(forKey: "isSavedProgressAvailable") {
@@ -76,6 +79,7 @@ class QuizViewController: BetterUIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         updateUI()
+        print(currentQuestion, defaults.integer(forKey: "currentQuestion"))
     }
     
     
@@ -92,8 +96,7 @@ class QuizViewController: BetterUIViewController {
     }
     
     @IBAction func nextButtonPressed(_ sender: UIButton) {
-        
-        
+        //print(QuestionModel.shared.currentQuestion)
         if currentQuestion >= maxAnsweredQuestion {
             if selectedScore != 0 && selectedScore != nil {
 //            print(selectedScore)
@@ -179,6 +182,7 @@ class QuizViewController: BetterUIViewController {
     func nextQuestionUIUpdate() {
         //moving one question forward and updating all text
         currentQuestion += 1
+
             questionLabel.fadeOut(duration: 0.15, delay: 0)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
                 self.updateUI()
@@ -222,7 +226,7 @@ class QuizViewController: BetterUIViewController {
     
     func updateUI() {
         
-        navigationItem.title = "Question \(currentQuestion + 1)/\(QuestionModel.shared.questions.count)"
+        questionNumberLabel.text = "Question \(currentQuestion + 1)/\(QuestionModel.shared.questions.count)"
         questionLabel.text = "\(QuestionModel.shared.questions[(currentQuestion)])"
         if answers?.last?.answers[currentQuestion] != 0 {
             selectedScore = answers?.last?.answers[currentQuestion]
@@ -281,6 +285,7 @@ class QuizViewController: BetterUIViewController {
                 
                 self.defaults.set(self.currentQuestion, forKey: "currentQuestion")
                 self.defaults.set(true, forKey: "isSavedProgressAvailable")
+
                 
                 self.navigationController?.popViewController(animated: true)
                 

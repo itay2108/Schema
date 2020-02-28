@@ -27,18 +27,21 @@ class PastResultsViewController: BetterUIViewController {
 
         fetchFromrealm()
         
+        enableNoResultsLabelIfNeeded()
+        view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
     }
     
     func fetchFromrealm() {
         savedResults = realm.objects(SavedResult.self).sorted(byKeyPath: "date", ascending: false)
     }
     
-    func clearCollectionViewBackgroundColorIfNoResults() {
+    func enableNoResultsLabelIfNeeded() {
         if let count = savedResults?.count {
             if count == 0 {
-                collectionView.backgroundColor = .clear
+                noResultsLabel.text = "No results have been saved... yet."
             }
         }
+        
     }
     
 }
@@ -72,7 +75,7 @@ extension PastResultsViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        clearCollectionViewBackgroundColorIfNoResults()
+        enableNoResultsLabelIfNeeded()
         return savedResults?.count ?? 0
     }
     
@@ -99,7 +102,7 @@ extension PastResultsViewController: UICollectionViewDelegate, UICollectionViewD
             
             let deleteButton = UIAlertAction(title: "Delete", style: .destructive) { (action) in
                 self.deleteResult(result)
-                self.clearCollectionViewBackgroundColorIfNoResults()
+                self.enableNoResultsLabelIfNeeded()
                 
             }
             

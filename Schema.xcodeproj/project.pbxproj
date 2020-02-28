@@ -19,6 +19,7 @@
 		6659F72C2408406400905823 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6659F72B2408406400905823 /* StoreKit.framework */; };
 		6659F72E2408449B00905823 /* BetterUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659F72D2408449B00905823 /* BetterUINavigationController.swift */; };
 		6659F7322408883500905823 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659F7312408883500905823 /* K.swift */; };
+		6659F73424089AE800905823 /* HomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659F73324089AE800905823 /* HomeButton.swift */; };
 		668965DD240200CC00D2F5B1 /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668965DC240200CC00D2F5B1 /* NameViewController.swift */; };
 		668965DF24020CAC00D2F5B1 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668965DE24020CAC00D2F5B1 /* InstructionsViewController.swift */; };
 		6697D7172405755B0017ABC8 /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6697D7162405755B0017ABC8 /* Answers.swift */; };
@@ -49,6 +50,7 @@
 		6659F72B2408406400905823 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		6659F72D2408449B00905823 /* BetterUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterUINavigationController.swift; sourceTree = "<group>"; };
 		6659F7312408883500905823 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		6659F73324089AE800905823 /* HomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButton.swift; sourceTree = "<group>"; };
 		668965DC240200CC00D2F5B1 /* NameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
 		668965DE24020CAC00D2F5B1 /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		6697D7162405755B0017ABC8 /* Answers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				663AEA0924002BF60042E0B1 /* BetterUIViewController.swift */,
 				663AEA0B240039180042E0B1 /* Vibration.swift */,
 				6659F7312408883500905823 /* K.swift */,
+				6659F73324089AE800905823 /* HomeButton.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				669A1CFB23FEAE7C00B4D2E1 /* SettingsBundleHandler.swift in Sources */,
 				668965DF24020CAC00D2F5B1 /* InstructionsViewController.swift in Sources */,
 				6659F72E2408449B00905823 /* BetterUINavigationController.swift in Sources */,
+				6659F73424089AE800905823 /* HomeButton.swift in Sources */,
 				66EB1EA723E6FC2100DE9587 /* ResultCell.swift in Sources */,
 				6659F7322408883500905823 /* K.swift in Sources */,
 				664399F423FC175F00D7C6EF /* SavedResult.swift in Sources */,
@@ -471,7 +475,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 121;
 				DEVELOPMENT_TEAM = DMNW5WHDHR;
@@ -483,7 +487,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gervash.Schema;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Itay Gervash";
+				PROVISIONING_PROFILE_SPECIFIER = "Itay Gervash (Dev)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -497,7 +501,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 121;
 				DEVELOPMENT_TEAM = DMNW5WHDHR;
@@ -509,7 +513,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gervash.Schema;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Itay Gervash";
+				PROVISIONING_PROFILE_SPECIFIER = "Itay Gervash (Dev)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
