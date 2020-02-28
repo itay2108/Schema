@@ -13,8 +13,6 @@ import RealmSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var resultsModel = ResultsModel()
-    let savedResult = SavedResult()
     let realm = try! Realm()
     let defaults = UserDefaults.standard
 
@@ -41,6 +39,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        print("backgrounD")
+        print(defaults.integer(forKey: "currentQuestion"))
+        self.defaults.set(true, forKey: "isSavedProgressAvailable")
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        print("terminate")
+        print(defaults.integer(forKey: "currentQuestion"))
+        self.defaults.set(true, forKey: "isSavedProgressAvailable")
+    }
 
 }
     

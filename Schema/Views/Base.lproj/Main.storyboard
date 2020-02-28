@@ -297,7 +297,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ye-nP-cPF">
-                                <rect key="frame" x="20" y="64" width="291" height="46.5"/>
+                                <rect key="frame" x="20" y="64" width="290" height="46.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5Ye-nP-cPF" secondAttribute="height" multiplier="287:46" id="kTH-in-SDY"/>
                                 </constraints>

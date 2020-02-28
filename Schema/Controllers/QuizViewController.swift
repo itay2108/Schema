@@ -96,11 +96,10 @@ class QuizViewController: BetterUIViewController {
     }
     
     @IBAction func nextButtonPressed(_ sender: UIButton) {
-        //print(QuestionModel.shared.currentQuestion)
+
         if currentQuestion >= maxAnsweredQuestion {
             if selectedScore != 0 && selectedScore != nil {
-//            print(selectedScore)
-//            print(currentQuestion, maxAnsweredQuestion)
+
             registerAnswer()
             nextQuestionUIUpdate()
             maxAnsweredQuestion += 1
@@ -182,7 +181,7 @@ class QuizViewController: BetterUIViewController {
     func nextQuestionUIUpdate() {
         //moving one question forward and updating all text
         currentQuestion += 1
-
+        self.defaults.set(self.currentQuestion, forKey: "currentQuestion")
             questionLabel.fadeOut(duration: 0.15, delay: 0)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
                 self.updateUI()
@@ -204,7 +203,7 @@ class QuizViewController: BetterUIViewController {
     func previousQuestionUIUpdate() {
         //moving one question forward and updating all text
         currentQuestion -= 1
-
+        self.defaults.set(self.currentQuestion, forKey: "currentQuestion")
             questionLabel.fadeOut(duration: 0.15, delay: 0)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150)) {
                 self.updateUI()
