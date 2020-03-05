@@ -12,6 +12,7 @@ class InfoViewController: BetterUIViewController {
 
     @IBOutlet weak var schemeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UITextView!
+    @IBOutlet weak var descriptionSuperView: UIView!
     
     var scheme: String = ""
     var schemeDescription: String = ""
@@ -20,6 +21,9 @@ class InfoViewController: BetterUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        descriptionSuperView.cornerRadius = 5
+        view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
+        
         SettingsBundleHandler.shared.delegate = self
         SettingsBundleHandler.shared.setupNotificationObserver()
         

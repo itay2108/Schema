@@ -10,12 +10,13 @@ import UIKit
 
 class NameViewController: BetterUIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var nameTextFieldSuperView: UIView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var placeHolder: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        nameTextFieldSuperView.cornerRadius = 20
         view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
         
         self.nameTextField.delegate = self
@@ -27,7 +28,7 @@ class NameViewController: BetterUIViewController, UITextFieldDelegate {
         
         //setting textfield placeholder
         nameTextField.attributedPlaceholder = NSAttributedString(string: "Your Name",
-        attributes: [NSAttributedString.Key.foregroundColor: UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.66)])
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.44)])
         placeHolder.fadeOut(duration: 0, delay: 0)
         
         //listening for text changes
@@ -80,7 +81,7 @@ class NameViewController: BetterUIViewController, UITextFieldDelegate {
     
     func endWritingAnimation() {
         placeHolder.fadeOut(duration: 0.15, delay: 0)
-        nameTextField.attributedPlaceholder = NSAttributedString(string: "Your Name", attributes: [NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.5)])
+        nameTextField.attributedPlaceholder = NSAttributedString(string: "Your Name", attributes: [NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.44)])
     }
     
 //MARK: - IBActions

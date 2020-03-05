@@ -8,11 +8,14 @@
 
 import UIKit
 import MessageUI
+import StoreKit
 
 class ViewController: BetterUIViewController {
 
     @IBOutlet var buttons: [UIButton]!
     @IBOutlet weak var beginButton: UIButton!
+    @IBOutlet weak var savedResultsButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,24 +31,29 @@ class ViewController: BetterUIViewController {
             UserDefaults.standard.set(false, forKey: "isSavedProgressAvailable") 
             UserDefaults.standard.set(0, forKey: "currentQuestion")
         }
-        for button in self.buttons {
-            button.setBackgroundColor(UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.1), forState: .highlighted)
-        }
+        //setting ViewController as the observer for paymentQueue
+        SKPaymentQueue.default().add(self)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        UserDefaults.standard.set(true, forKey: "pro_version")
+        if UserDefaults.standard.bool(forKey: "pro_version") {
+            savedResultsButton.setBackgroundImage(UIImage(named: "Saved Results Button"), for: .normal)
+        } else {
+            savedResultsButton.setBackgroundImage(UIImage(named: "Saved Results Pro"), for: .normal)
+        }
         
         SettingsBundleHandler.shared.delegate = self
         SettingsBundleHandler.shared.setupNotificationObserver()
         
         if UserDefaults.standard.bool(forKey: "isSavedProgressAvailable") {
-            beginButton.setTitle("  Continue Questionnaire", for: UIControl.State.normal)
+            beginButton.setBackgroundImage(UIImage(named: "Continue Button"), for: .normal)
         } else {
-            beginButton.setTitle("  Begin Questionnaire", for: UIControl.State.normal)
+            beginButton.setBackgroundImage(UIImage(named: "Begin Button"), for: .normal)
+            
         }
-        
         
 
     }
@@ -66,6 +74,53 @@ class ViewController: BetterUIViewController {
               }
         }
     }
+    
+    @IBAction func savedResultsButtonPressed(_ sender: UIButton) {
+        if UserDefaults.standard.bool(forKey: "pro_version") {
+            performSegue(withIdentifier: "rootToSavedResults", sender: self)
+        } else {
+            //upgradeToPro()
+            performSegue(withIdentifier: "popOver", sender: self)
+            
+            
+        }
+        
+    }
+    
+    
+    @IBAction func shareButtonPressed(_ sender: UIButton) {
+        let firstActivityItem = "I've been using the Schema Therapy app, and its pretty great!"
+        //link
+        //let secondActivityItem : NSURL = NSURL(string: "http//:urlyouwant")!
+        //image
+        //let image : UIImage = UIImage(named: "image.jpg")!
+
+        let activityViewController : UIActivityViewController = UIActivityViewController(
+            activityItems: [firstActivityItem], applicationActivities: nil)
+
+        // This lines is for the popover you need to show in iPad
+        activityViewController.popoverPresentationController?.sourceView = (sender)
+
+        // This line remove the arrow of the popover to show in iPad
+        activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.any
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+
+        // Anything you want to exclude
+        activityViewController.excludedActivityTypes = [
+            UIActivity.ActivityType.postToWeibo,
+            UIActivity.ActivityType.print,
+            UIActivity.ActivityType.assignToContact,
+            UIActivity.ActivityType.saveToCameraRoll,
+            UIActivity.ActivityType.addToReadingList,
+            UIActivity.ActivityType.postToFlickr,
+            UIActivity.ActivityType.postToVimeo,
+            UIActivity.ActivityType.postToTencentWeibo
+        ]
+
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+
     
     @IBAction func showCopyRight(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: "This app was developed for educational purposes only. If you are the owner of any of the intellectual property used in this app, and would like it to be taken down - please contact the developer", preferredStyle: .actionSheet)
@@ -105,6 +160,22 @@ class ViewController: BetterUIViewController {
              })
          }
     }
+    
+    @IBAction func restoreButtonPressed(_ sender: UIButton) {
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+    
+    func upgradeToPro() {
+        guard SKPaymentQueue.canMakePayments() else {
+            print("can't make payments")
+            return }
+        
+        let paymentResuest = SKMutablePayment()
+        paymentResuest.productIdentifier = K.Strings.proVersionID
+        SKPaymentQueue.default().add(paymentResuest)
+        
+    }
+    
 }
 
 // MARK: - Extension for MFMailCompose Delegate
@@ -140,3 +211,35 @@ extension ViewController: MFMailComposeViewControllerDelegate {
     }
     
 }
+
+extension ViewController: SKPaymentTransactionObserver {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            if transaction.transactionState == .purchased {
+                //purchased
+                savedResultsButton.setBackgroundImage(UIImage(named: "Saved Results Button"), for: .normal)
+                SKPaymentQueue.default().finishTransaction(transaction)
+                
+            } else if transaction.transactionState == .failed {
+                   //failed
+                if let safeError = transaction.error?.localizedDescription {
+                    print("error completing purchase: \(safeError)")
+                }
+            } else if transaction.transactionState == .restored {
+                //restored
+                UserDefaults.standard.set(true, forKey: "pro_version")
+                savedResultsButton.setBackgroundImage(UIImage(named: "Saved Results Button"), for: .normal)
+                
+                let alert = UIAlertController(title: "Restore Purchase", message: "Your purchase was restored successfuly. You now have the pro version of Schema", preferredStyle: .alert)
+                let dismiss = UIAlertAction(title: "Dismiss", style: .default) { (action) in
+                    SKPaymentQueue.default().finishTransaction(transaction)
+                    alert.dismiss(animated: true)
+                }
+                alert.addAction(dismiss)
+                present(alert, animated: true)
+            }
+        }
+    }
+
+}
+

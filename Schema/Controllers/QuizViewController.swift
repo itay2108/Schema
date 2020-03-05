@@ -34,7 +34,7 @@ class QuizViewController: BetterUIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        questionView.cornerRadius = 5
         view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
         
         //If there isn't a questionnaire in progress - Delete old results and create a blank List<Int> with 18 places that are equal to 0. else - keep the result array in progress
@@ -79,7 +79,7 @@ class QuizViewController: BetterUIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         updateUI()
-        print(currentQuestion, defaults.integer(forKey: "currentQuestion"))
+        //print(currentQuestion, defaults.integer(forKey: "currentQuestion"))
     }
     
     
@@ -139,7 +139,7 @@ class QuizViewController: BetterUIViewController {
                     
                     do {
                         try realm.write {
-                            print("score to substract: \(String(describing: answers?.last?.answers[currentQuestion]))")
+                            //print("score to substract: \(String(describing: answers?.last?.answers[currentQuestion]))")
                             resultsModel.resultArray[(currentQuestion % 18)] -= answers?.last?.answers[currentQuestion] ?? 0
                             answers?.last?.answers[currentQuestion] = safeScore
                             resultsModel.resultArray[(currentQuestion % 18)] += safeScore
@@ -156,7 +156,7 @@ class QuizViewController: BetterUIViewController {
             if let safeScore = selectedScore {
                 do {
                     try realm.write {
-                        print("score to substract: \(String(describing: answers?.last?.answers[currentQuestion]))")
+                        //print("score to substract: \(String(describing: answers?.last?.answers[currentQuestion]))")
                         resultsModel.resultArray[(currentQuestion % 18)] -= answers?.last?.answers[currentQuestion] ?? 0
                         answers?.last?.answers[currentQuestion] = safeScore
                         resultsModel.resultArray[(currentQuestion % 18)] += safeScore

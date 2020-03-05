@@ -34,6 +34,7 @@
 		669A531723E5A293007B4974 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 669A531523E5A293007B4974 /* LaunchScreen.storyboard */; };
 		66ACDFDD23F8309300752B9B /* PastResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ACDFDC23F8309300752B9B /* PastResultsViewController.swift */; };
 		66C4332223E75BBE00BCF971 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C4332123E75BBE00BCF971 /* InfoViewController.swift */; };
+		66CE7BE1240C1C2E00486ADC /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE7BE0240C1C2E00486ADC /* UpgradeViewController.swift */; };
 		66DC0D3D23E76E720033126A /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC0D3C23E76E720033126A /* Info.swift */; };
 		66EB1EA523E6FA2500DE9587 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB1EA423E6FA2500DE9587 /* ResultsViewController.swift */; };
 		66EB1EA723E6FC2100DE9587 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB1EA623E6FC2100DE9587 /* ResultCell.swift */; };
@@ -67,6 +68,7 @@
 		669A531823E5A293007B4974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66ACDFDC23F8309300752B9B /* PastResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastResultsViewController.swift; sourceTree = "<group>"; };
 		66C4332123E75BBE00BCF971 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		66CE7BE0240C1C2E00486ADC /* UpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewController.swift; sourceTree = "<group>"; };
 		66DC0D3C23E76E720033126A /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		66EB1EA423E6FA2500DE9587 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		66EB1EA623E6FC2100DE9587 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			children = (
 				6659F72D2408449B00905823 /* BetterUINavigationController.swift */,
 				669A530B23E5A28C007B4974 /* ViewController.swift */,
+				66CE7BE0240C1C2E00486ADC /* UpgradeViewController.swift */,
 				668965DE24020CAC00D2F5B1 /* InstructionsViewController.swift */,
 				668965DC240200CC00D2F5B1 /* NameViewController.swift */,
 				6622CDF723E5C28C00538801 /* QuizViewController.swift */,
@@ -314,6 +317,7 @@
 				663AEA0A24002BF60042E0B1 /* BetterUIViewController.swift in Sources */,
 				66ACDFDD23F8309300752B9B /* PastResultsViewController.swift in Sources */,
 				664399F823FC5D6C00D7C6EF /* SavedResultCell.swift in Sources */,
+				66CE7BE1240C1C2E00486ADC /* UpgradeViewController.swift in Sources */,
 				669A1CFB23FEAE7C00B4D2E1 /* SettingsBundleHandler.swift in Sources */,
 				668965DF24020CAC00D2F5B1 /* InstructionsViewController.swift in Sources */,
 				6659F72E2408449B00905823 /* BetterUINavigationController.swift in Sources */,
@@ -477,9 +481,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 123;
+				CURRENT_PROJECT_VERSION = 126;
 				DEVELOPMENT_TEAM = DMNW5WHDHR;
 				INFOPLIST_FILE = Schema/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -491,7 +496,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -503,9 +508,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 123;
+				CURRENT_PROJECT_VERSION = 126;
 				DEVELOPMENT_TEAM = DMNW5WHDHR;
 				INFOPLIST_FILE = Schema/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -516,7 +522,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Itay Gervash";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

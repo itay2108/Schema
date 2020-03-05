@@ -13,9 +13,12 @@ struct K {
     struct Colours {
         static let blue = UIColor(displayP3Red: 0, green: 122/255, blue: 1, alpha: 1)
         static let green = UIColor(displayP3Red: 0/255, green: 180/255, blue: 180/255, alpha: 1)
+        static let darkBlue = UIColor(displayP3Red: 11/255, green: 31/255, blue: 72/255, alpha: 1)
         static let darkGray = UIColor(displayP3Red: 29/255, green: 29/255, blue: 29/255, alpha: 1)
     }
 
-    
+    struct Strings {
+        static let proVersionID = "com.gervash.Schema.Pro"
+    }
 }
 

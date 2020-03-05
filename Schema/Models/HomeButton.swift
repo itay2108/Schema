@@ -28,10 +28,13 @@ class HomeButton: UIButton {
     func setup() {
         setShadow()
         
-        setTitleColor(K.Colours.darkGray, for: .normal)
-        backgroundColor = .white
+        setTitleColor(.label, for: .normal)
+        backgroundColor = UIColor(named: "YSQ-BG")
+        tintColor = .systemBlue
+        //setTitleColor(K.Colours.darkGray, for: .normal)
+        //backgroundColor = .white
         //titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 16.0)
-        layer.cornerRadius = 22.5
+        layer.cornerRadius = 20
         
     }
     
@@ -41,5 +44,14 @@ class HomeButton: UIButton {
         layer.shadowRadius = 8
         layer.shadowOpacity = 0.33
         clipsToBounds = true
+    }
+}
+
+class UpgradeButton: HomeButton {
+    override func setup() {
+        super.setup()
+        backgroundColor = K.Colours.blue
+        setTitleColor(.white, for: .normal)
+        layer.cornerRadius = 7.5
     }
 }

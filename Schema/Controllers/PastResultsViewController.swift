@@ -13,6 +13,7 @@ class PastResultsViewController: BetterUIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var noResultsLabel: UILabel!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var indexPathRow: Int?
     let realm = try! Realm()
@@ -197,3 +198,38 @@ extension PastResultsViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
 }
+
+//extension PastResultsViewController: UISearchBarDelegate {
+//    
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        if searchBar.text?.count == 0 {
+//            fetchFromrealm()
+//            collectionView.reloadData()
+//            hideKeyboardWhenTappedAround()
+//            DispatchQueue.main.async {
+//            searchBar.resignFirstResponder()
+//            }
+//        } else {
+//            if let safeSearchBarText = searchBar.text{
+//                savedResults = savedResults?.filter("title Contains[cd] %@", safeSearchBarText).sorted(byKeyPath: "date", ascending: false)
+//            }
+//        }
+//    }
+//    
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        if searchBar.text?.count == 0 {
+//            fetchFromrealm()
+//            collectionView.reloadData()
+//            hideKeyboardWhenTappedAround()
+//            DispatchQueue.main.async {
+//            searchBar.resignFirstResponder()
+//            }
+//        } else {
+//            print("text changed")
+//            if let safeSearchBarText = searchBar.text{
+//                savedResults = savedResults?.filter("title Contains[cd] %@", safeSearchBarText).sorted(byKeyPath: "date", ascending: false)
+//                print(savedResults)
+//            }
+//        }
+//    }
+//}

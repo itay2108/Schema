@@ -27,6 +27,8 @@ class ResultsViewController: BetterUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
+        
         SettingsBundleHandler.shared.delegate = self
         SettingsBundleHandler.shared.setupNotificationObserver()
         

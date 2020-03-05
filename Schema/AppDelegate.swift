@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SettingsBundleHandler.applyQuizLength()
         if UIApplication.isFirstLaunch() {
         UserDefaults.standard.set(true, forKey: "auto_save")
+        UserDefaults.standard.set(false, forKey: "pro_version")
         }
         return true
     }
