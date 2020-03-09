@@ -16,13 +16,15 @@ class ViewController: BetterUIViewController {
     @IBOutlet weak var beginButton: UIButton!
     @IBOutlet weak var savedResultsButton: UIButton!
     
+    var appHasLaunchedAtLeastOnce: Bool = UserDefaults.standard.bool(forKey: "HasAtLeastLaunchedOnce")
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
-        view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
         
+        print(appHasLaunchedAtLeastOnce)
+        view.applyGradientColorToBackGround(color1: K.Colours.blue, color2: K.Colours.green)
         
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
@@ -31,14 +33,16 @@ class ViewController: BetterUIViewController {
             UserDefaults.standard.set(false, forKey: "isSavedProgressAvailable") 
             UserDefaults.standard.set(0, forKey: "currentQuestion")
         }
+        
+        //removeFailedTransactions()
         //setting ViewController as the observer for paymentQueue
         SKPaymentQueue.default().add(self)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(true)
-        UserDefaults.standard.set(true, forKey: "pro_version")
         if UserDefaults.standard.bool(forKey: "pro_version") {
             savedResultsButton.setBackgroundImage(UIImage(named: "Saved Results Button"), for: .normal)
         } else {
@@ -62,7 +66,7 @@ class ViewController: BetterUIViewController {
     
     @IBAction func beginButtonPressed(_ sender: UIButton) {
         
-        if UIApplication.isFirstLaunch() {
+        if !appHasLaunchedAtLeastOnce {
             performSegue(withIdentifier: "rootToInstructions", sender: self)
         } else {
             if UserDefaults.standard.bool(forKey: "auto_save") && !UserDefaults.standard.bool(forKey: "isSavedProgressAvailable") {
@@ -139,7 +143,9 @@ class ViewController: BetterUIViewController {
     }
     
     func showMailComposer() {
-        guard MFMailComposeViewController.canSendMail() else { /*show alert informing the user he cant send mails*/ return }
+        guard MFMailComposeViewController.canSendMail() else {
+            presentErrorAlert(title: "Unable to send mail from this device", message: nil)
+            return }
         
         let composer = MFMailComposeViewController()
         composer.mailComposeDelegate = self
@@ -147,6 +153,25 @@ class ViewController: BetterUIViewController {
         composer.setSubject("Copyright violation (Schema app)")
         
         present(composer, animated: true)
+    }
+    
+    func presentErrorAlert(title: String?, message: String?) {
+        
+        let alert = UIAlertController(title: "An error has occured", message: "", preferredStyle: .alert)
+        
+        if let safeTitle = title {
+            alert.title = safeTitle
+
+        }
+        
+        if let safeMsg = message {
+            alert.message = safeMsg
+        }
+        
+        let dismiss = UIAlertAction(title: "dismiss", style: .cancel) { (UIAlertAction) in
+        }
+        alert.addAction(dismiss)
+        present(alert, animated: true)
     }
     
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
@@ -162,7 +187,16 @@ class ViewController: BetterUIViewController {
     }
     
     @IBAction func restoreButtonPressed(_ sender: UIButton) {
+        
         SKPaymentQueue.default().restoreCompletedTransactions()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            if !UserDefaults.standard.bool(forKey: "pro_version") {
+                self.presentErrorAlert(title: "Unable to restore purchase", message: "You haven't purchased the pro version yet")
+            }
+        }
+        
+        
     }
     
     func upgradeToPro() {
@@ -173,6 +207,8 @@ class ViewController: BetterUIViewController {
         let paymentResuest = SKMutablePayment()
         paymentResuest.productIdentifier = K.Strings.proVersionID
         SKPaymentQueue.default().add(paymentResuest)
+        
+        
         
     }
     
@@ -222,9 +258,14 @@ extension ViewController: SKPaymentTransactionObserver {
                 
             } else if transaction.transactionState == .failed {
                    //failed
-                if let safeError = transaction.error?.localizedDescription {
-                    print("error completing purchase: \(safeError)")
-                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                    print("transaction failed")
+                     self.presentErrorAlert(title: "Unable to complete purchase", message: "please check you internet connection. if this problem persists - please contact the developer")
+                })
+                   
+                removeFailedTransactions()
+                
             } else if transaction.transactionState == .restored {
                 //restored
                 UserDefaults.standard.set(true, forKey: "pro_version")
@@ -237,6 +278,19 @@ extension ViewController: SKPaymentTransactionObserver {
                 }
                 alert.addAction(dismiss)
                 present(alert, animated: true)
+            }
+        }
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        print(error)
+        presentErrorAlert(title: "Failed to restore purchase", message: "You haven't purchased the pro version yet")
+    }
+    
+    func removeFailedTransactions() {
+        for transaction in SKPaymentQueue.default().transactions {
+            if transaction.transactionState == .failed {
+                SKPaymentQueue.default().finishTransaction(transaction)
             }
         }
     }

@@ -41,9 +41,6 @@ public class SettingsBundleHandler {
             delegate?.forceDarkUI(UserDefaults.standard.bool(forKey: "force_dark"))
         }
         
-//        if UserDefaults.standard.bool(forKey: "auto_save") {
-//
-//        }
 
      }
     
@@ -58,6 +55,7 @@ public class SettingsBundleHandler {
         
         if UserDefaults.standard.bool(forKey: "short_quiz") {
             QuestionModel.shared.questions = QuestionModel.shared.short
+            
         } else {
             QuestionModel.shared.questions = QuestionModel.shared.long
         }
